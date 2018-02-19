@@ -1,0 +1,11 @@
+--- # Commission and run clickos instances on dataplane
+- hosts: switches
+  remote_user: root
+  connection: ssh
+  tasks:
+  - name: Decommission clickOS VM
+    command: xl destroy smurfAttack
+    register: result
+  - debug: var=result
+  
+  

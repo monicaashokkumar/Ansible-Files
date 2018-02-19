@@ -1,0 +1,27 @@
+--- # Commission and run clickos instances on dataplane
+- hosts: switches
+  remote_user: root
+  connection: ssh
+  tasks:
+  - name: copy xen file
+    copy:
+     src: /users/monica0/dataplane-scripts/smurf.xen
+     dest: /users/monica0/ClickOsSetupForCloudLab/xenFiles/smurf.xen
+    register: result
+  - debug: var=result
+  - name: copy click file
+    copy: 
+     src: /users/monica0/dataplane-scripts/smurf.click
+     dest: /users/monica0/ClickOsSetupForCloudLab/clickFiles/smurf.click
+    register: result
+  - debug: var=result
+  - name: Instantiate clickOS VM
+    command: xl create /users/monica0/ClickOsSetupForCloudLab/xenFiles/smurf.xen
+    register: result
+  - debug: var=result
+  - name: Run clickOS
+    command: /users/monica0/ClickOsSetupForCloudLab/cosmos/dist/bin/cosmos start smurfAttack /users/monica0/ClickOsSetupForCloudLab/clickFiles/smurf.click
+    register: result
+  - debug: var=result
+  
+  
