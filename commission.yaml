@@ -3,24 +3,83 @@
   remote_user: root
   connection: ssh
   tasks:
-  - name: copy xen file
+  - name: copy xen file1
     copy:
-     src: /users/monica0/dataplane-scripts/smurf.xen
-     dest: /users/monica0/ClickOsSetupForCloudLab/xenFiles/smurf.xen
+     src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/xenFiles/vnf1.xen
+     dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/xenFiles/vnf1.xen
     register: result
   - debug: var=result
-  - name: copy click file
+
+- hosts: switches
+  remote_user: root
+  connection: ssh
+  tasks:
+  - name: copy xen file2
     copy: 
-     src: /users/monica0/dataplane-scripts/smurf.click
-     dest: /users/monica0/ClickOsSetupForCloudLab/clickFiles/smurf.click
+      src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/xenFiles/vnf2.xen
+      dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/xenFiles/vnf2.xen
     register: result
   - debug: var=result
-  - name: Instantiate clickOS VM
-    command: xl create /users/monica0/ClickOsSetupForCloudLab/xenFiles/smurf.xen
+  
+- hosts: switches
+  remote_user: root
+  connection: ssh
+  tasks:
+  - name: copy xen file3
+    copy:
+      src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/xenFiles/vnf3.xen
+      dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/xenFiles/vnf3.xen
+    register: result
+    - debug: var=result
+
+  - name: copy vnf1 click file
+    copy: 
+     src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/clickFiles/vnf1.click
+     dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf1.click
     register: result
   - debug: var=result
-  - name: Run clickOS
-    command: /users/monica0/ClickOsSetupForCloudLab/cosmos/dist/bin/cosmos start smurfAttack /users/monica0/ClickOsSetupForCloudLab/clickFiles/smurf.click
+
+  - name: copy vnf2 click file
+    copy:
+      src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/clickFiles/vnf2.click
+      dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf2.click
+    register: result
+  - debug: var=result
+
+  - name: copy vnf3 click file
+    copy:
+      src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/clickFiles/vnf3.click
+      dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf3.click
+    register: result
+  - debug: var=result
+
+  - name: Instantiate clickOS vnf1 VM
+    command: xl create /users/monica0/ClickOsSetupForCloudLab/monicaFiles/xenFiles/vnf1.xen
+    register: result
+  - debug: var=result
+
+  - name: Instantiate clickOS vnf2 VM
+    command: xl create /users/monica0/ClickOsSetupForCloudLab/monicaFiles/xenFiles/vnf2.xen
+    register: result
+  - debug: var=result
+
+  - name: Instantiate clickOS vnf3 VM
+    command: xl create /users/monica0/ClickOsSetupForCloudLab/monicFiles/xenFiles/vnf3.xen
+    register: result
+  - debug: var=result
+
+  - name: Run clickOS1
+    command: /users/monica0/ClickOsSetupForCloudLab/cosmos/dist/bin/cosmos start vnf1 /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf1.click
+    register: result
+  - debug: var=result
+
+  - name: Run clickOS2
+    command: /users/monica0/ClickOsSetupForCloudLab/cosmos/dist/bin/cosmos start vnf2 /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf2.click
+    register: result
+  - debug: var=result
+
+  - name: Run clickOS3
+    command: /users/monica0/ClickOsSetupForCloudLab/cosmos/dist/bin/cosmos start vnf3 /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf3.click
     register: result
   - debug: var=result
   
