@@ -30,7 +30,7 @@
       src: /users/monica0/ClickOsSetupForCloudLab/clickOSPool/xenFiles/vnf3.xen
       dest: /users/monica0/ClickOsSetupForCloudLab/monicaFiles/xenFiles/vnf3.xen
     register: result
-    - debug: var=result
+  - debug: var=result
 
   - name: copy vnf1 click file
     copy: 
