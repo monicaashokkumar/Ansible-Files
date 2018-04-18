@@ -82,5 +82,4 @@
     command: /users/monica0/ClickOsSetupForCloudLab/cosmos/dist/bin/cosmos start vnf3 /users/monica0/ClickOsSetupForCloudLab/monicaFiles/clickFiles/vnf3.click
     register: result
   - debug: var=result
-  
-  
+ 
