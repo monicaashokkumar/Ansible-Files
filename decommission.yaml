@@ -25,7 +25,4 @@
     command: xl destroy vnf3
     register: result
   - debug: var=result
-
-
-  
   
